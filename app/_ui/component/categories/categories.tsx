@@ -17,7 +17,6 @@ export default function Categories({
   const [activeCategory, setActiveCategory] = useState(categories[0]);
 
   const handleCategoryClick = (category: string) => {
-    console.log(category);
     setActiveCategory(category);
     handleCategories(activeCategory);
   };

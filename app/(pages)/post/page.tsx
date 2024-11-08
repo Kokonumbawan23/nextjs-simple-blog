@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Post from "@/app/ui/post/post";
+import Post from "@/app/_ui/post/post";
 
 export default function Home() {
   return (

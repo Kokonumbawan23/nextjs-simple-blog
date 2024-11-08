@@ -5,12 +5,14 @@ import Document from "@tiptap/extension-document";
 import Paragraph from "@tiptap/extension-paragraph";
 import Placeholder from "@tiptap/extension-placeholder";
 import Text from "@tiptap/extension-text";
-import { EditorContent, useEditor } from "@tiptap/react";
-import React, { forwardRef, useImperativeHandle } from "react";
+import { Editor, EditorContent, useEditor } from "@tiptap/react";
+import React, { forwardRef, useImperativeHandle, useRef } from "react";
 
 const NewEditor = forwardRef(
-  (props: { className?: string; placeholder?: string }, ref) => {
-    const editor = useEditor({
+  (props: { className?: string; placeholder?: string, handler: (a: string) => void }, ref) => {
+
+    const parentHandler = props.handler;
+    const editor: Editor = useEditor({
       immediatelyRender: false,
       editorProps: {
         attributes: {
@@ -23,10 +25,18 @@ const NewEditor = forwardRef(
         Text,
         Placeholder.configure({ placeholder: `${props.placeholder ?? ""}` }),
       ],
+      onUpdate: ({ editor }) => {
+        parentHandler(editor.getHTML());
+        
+      },
       content: ``,
-    });
+    }) as Editor;
 
-    useImperativeHandle(ref, () => editor, [editor]);
+    useImperativeHandle(ref, () => {
+      return {
+        getHTML: () => editor.getHTML(),
+      };
+    }, []);
 
     if (!editor) {
       return null;

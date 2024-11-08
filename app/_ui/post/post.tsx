@@ -3,7 +3,7 @@
 import clsx from "clsx";
 import Image from "next/image";
 import { useReducer, useState } from "react";
-import Tiptap from "@/app/ui/component/editor/editor";
+import Tiptap from "@/app/_ui/component/editor/editor";
 
 export default function Post() {
   const [liked, setLiked] = useState(false);

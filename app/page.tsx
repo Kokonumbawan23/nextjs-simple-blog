@@ -20,7 +20,7 @@ export default function Home() {
 
         <div className="flex gap-4">
           <Link
-            href={"/pages/home"}
+            href={"/home"}
             className="rounded-md dark:bg-gray-200 dark:text-black px-4 py-2"
           >
             Get Started
