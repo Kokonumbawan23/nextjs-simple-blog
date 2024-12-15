@@ -1,5 +1,5 @@
 "use client";
-import NewEditor from "@/app/_ui/component/editor/editor";
+import newEditor from "@/app/_ui/component/editor/editor";
 
 
 export default function UpdatePost() {
@@ -25,18 +25,7 @@ export default function UpdatePost() {
     <div className="mt-16">
       <h1 className="text-2xl font-bold my-4">Update Post</h1>
       <form action="" className="flex flex-col gap-6 relative">
-        <NewEditor placeholder="Title" handler={(title: string) => {
-
-          formData.set("title", title);
-        }} />
-        <NewEditor
-          handler={(content: string) => {
-            
-            formData.set("content", content);
-          }}
-          className="h-40"
-          placeholder="Write Your Content Here"
-        />
+        
         
         <h2 className="font-bold text-lg">Header Image</h2>
         <div className="border-4 rounded-xl border-dashed p-8 relative border-gray-500/50">

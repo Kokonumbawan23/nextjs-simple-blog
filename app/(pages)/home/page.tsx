@@ -6,6 +6,7 @@ import SearchBar from "@/app/_ui/component/search-bar/search-bar";
 import { useEffect, useState } from "react";
 import usePost from "@/app/_hooks/usePost";
 import { Suspense } from "react";
+import CircularLoadingBar from "@/app/_ui/component/circularbar";
 
 export default function Page() {
 
@@ -28,7 +29,8 @@ export default function Page() {
         <SearchBar handleSearch={handleSearchBar} />
       </div>
       {
-        isLoading ? (<>Loading...</>) : error ? (<>Error...</>) :
+        isLoading ? (<CircularLoadingBar/>) : error ? (<>Error...</>) :
+      
       posts?.map((post: any, index: any) => (
             <div key={index} className="my-8">
               <div className="flex justify-between">

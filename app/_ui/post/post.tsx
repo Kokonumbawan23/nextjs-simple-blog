@@ -3,10 +3,12 @@
 import clsx from "clsx";
 import Image from "next/image";
 import { useReducer, useState } from "react";
-import Tiptap from "@/app/_ui/component/editor/editor";
+import newEditor from "@/app/_ui/component/editor/editor";
+import { EditorContent } from "@tiptap/react"; 
 
 export default function Post() {
   const [liked, setLiked] = useState(false);
+  const editor = newEditor("h-40 mb-20", "Write a comment");
   const comments = 100;
   const [likes, dispatch] = useReducer(
     (state: number, action: { type: string }) => {
@@ -105,7 +107,9 @@ export default function Post() {
             <span className="sm:text-sm md:text-md lg:text-lg">{comments}</span>
           </span>
         </div>
+
       </div>
+        <EditorContent editor={editor}/>
     </div>
   );
 }

@@ -3,27 +3,29 @@ import useSWRHook from "./useSWR";
 
 export default function usePost() {
   return {
-    createPost: (data: any) => {
-      useSWRHook("posts", "POST", data);
-    },
-    updatePost: (id: string, data: any) => {
-      useSWRHook(`posts/${id}`, "PUT", data);
-    },
-    getPosts: (search?: string, category? :string) => {
+  
+    getPosts: (search?: string, category?: string) => {
       const url = `Posts`;
       const searchParams = new URLSearchParams();
-      
+
       if (search) {
         searchParams.append("title", search);
       }
 
-      if(category){
+      if (category) {
         searchParams.append("category", category);
       }
-      
+
       const urlWithSearch = `${url}?${searchParams.toString()}`;
-    
-      const { data, error, isLoading } = useSWRHook(searchParams?.toString() ? urlWithSearch : url);
+
+      const { data, error, isLoading } = useSWRHook(
+        searchParams?.toString() ? urlWithSearch : url,
+      );
+
+      // check if not found
+      if (!data || data === "Not found") {
+        return { posts: [], error, isLoading };
+      }
 
       const posts: Post[] = data?.map((post: any) => ({
         id: post.id,
@@ -61,5 +63,6 @@ export default function usePost() {
       };
       return { post, error, isLoading };
     },
+
   };
 }

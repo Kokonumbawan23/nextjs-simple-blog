@@ -6,48 +6,28 @@ import Paragraph from "@tiptap/extension-paragraph";
 import Placeholder from "@tiptap/extension-placeholder";
 import Text from "@tiptap/extension-text";
 import { Editor, EditorContent, useEditor } from "@tiptap/react";
-import React, { forwardRef, useImperativeHandle, useRef } from "react";
+import React, { forwardRef, useImperativeHandle } from "react";
 
-const NewEditor = forwardRef(
-  (props: { className?: string; placeholder?: string, handler: (a: string) => void }, ref) => {
-
-    const parentHandler = props.handler;
-    const editor: Editor = useEditor({
-      immediatelyRender: false,
-      editorProps: {
-        attributes: {
-          class: `bg-gray-800/10 rounded-md min-h-20 p-3 ${props.className ?? ""}`,
-        },
+const newEditor = (className?:string,placeholder?:string) => {
+  const editor = useEditor({
+    immediatelyRender: false,
+    editorProps: {
+      attributes: {
+        class: `bg-gray-800/10 rounded-md min-h-20 p-3 ${className ?? ""}`,
       },
-      extensions: [
-        Document,
-        Paragraph,
-        Text,
-        Placeholder.configure({ placeholder: `${props.placeholder ?? ""}` }),
-      ],
-      onUpdate: ({ editor }) => {
-        parentHandler(editor.getHTML());
-        
-      },
-      content: ``,
-    }) as Editor;
+    },
+    extensions: [
+      Document,
+      Paragraph,
+      Text,
+      Placeholder.configure({ placeholder: `${placeholder ?? ""}` }),
+    ],
+  
+    content: ``,
+  }) as Editor;
 
-    useImperativeHandle(ref, () => {
-      return {
-        getHTML: () => editor.getHTML(),
-      };
-    }, []);
+  return editor;
+} 
 
-    if (!editor) {
-      return null;
-    }
-
-    return (
-      <>
-        <EditorContent editor={editor} />
-      </>
-    );
-  },
-);
-
-export default NewEditor;
+  
+export default newEditor;

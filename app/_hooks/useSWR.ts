@@ -17,7 +17,6 @@ export default function useSWRHook(url: string, method?: Method, body?: any) {
         },
       }).then((res) => res.json()),
     {
-      refreshInterval: 3000,
       keepPreviousData: method === "GET" ? true : false,
       
     },
