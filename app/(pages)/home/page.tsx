@@ -7,12 +7,15 @@ import { useEffect, useState } from "react";
 import usePost from "@/app/_hooks/usePost";
 import { Suspense } from "react";
 import CircularLoadingBar from "@/app/_ui/component/circularbar";
+import { Post } from "@/app/_types/Post";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
 
   const {getPosts}= usePost();
   const [search, setSearch]= useState<string>("");
   const {posts, error, isLoading}= getPosts(search);
+  const router = useRouter();
   
   const handleSearchBar = (search: string) => {
     setSearch(search);
@@ -31,8 +34,8 @@ export default function Page() {
       {
         isLoading ? (<CircularLoadingBar/>) : error ? (<>Error...</>) :
       
-      posts?.map((post: any, index: any) => (
-            <div key={index} className="my-8">
+      posts?.map((post: Post, index: any) => (
+            <div key={index} className="my-4 hover:cursor-pointer hover:bg-gray-500/10 rounded-lg p-8 transition-all ease-in-out" onClick={() => router.push(`/post/${post.id}`)}>
               <div className="flex justify-between">
                 <div className="flex flex-col justify-between">
                   <div className="flex gap-2 items-center">

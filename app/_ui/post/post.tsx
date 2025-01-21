@@ -2,14 +2,21 @@
 
 import clsx from "clsx";
 import Image from "next/image";
-import { useReducer, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import newEditor from "@/app/_ui/component/editor/editor";
 import { EditorContent } from "@tiptap/react"; 
+import type { Post } from "@/app/_types/Post";
 
-export default function Post() {
+export default function PostContent({
+  post,
+}: Readonly<{
+  post: Post;
+}>
+) {
+  const Post: Post = post;
   const [liked, setLiked] = useState(false);
   const editor = newEditor("h-40 mb-20", "Write a comment");
-  const comments = 100;
+  const comments = post.comment;
   const [likes, dispatch] = useReducer(
     (state: number, action: { type: string }) => {
       switch (action.type) {
@@ -33,44 +40,14 @@ export default function Post() {
         height={0}
         className="w-full h-auto sm:my-2 md:my-4 lg:my-8 rounded-lg"
       />
-      <p className="text-justify sm:text-sm md:text-md lg:text-lg sm:mb-2 md:mb-4 lg:mb-8 text-gray-200">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum a
-        doloribus molestias ex numquam quisquam excepturi laborum asperiores
-        incidunt, temporibus quia molestiae modi voluptatum nobis illo soluta
-        illum quos nesciunt magnam perferendis, quam odio ab praesentium.
-        Distinctio voluptatem reiciendis, nam expedita blanditiis ullam nisi
-        alias? Voluptas eos voluptate accusantium perferendis! Lorem, ipsum
-        dolor sit amet consectetur adipisicing elit. Expedita consectetur
-        repudiandae deserunt quaerat mollitia alias, ad officiis. Ducimus,
-        officiis accusamus.
-      </p>
-
-      <p className="text-justify sm:text-sm md:text-md lg:text-lg sm:mb-2 md:mb-4 lg:mb-8 text-gray-200">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi suscipit
-        vitae, dicta aut eaque temporibus beatae expedita commodi a tenetur,
-        tempora quidem sunt laboriosam corporis, harum inventore! Nam laudantium
-        vel eaque aliquam ut voluptatum voluptate culpa, ad iusto minima. Amet
-        repellat ipsam tempore rerum fugit ut quisquam consequuntur impedit
-        soluta voluptas nulla quaerat quod autem aut, saepe sint fugiat officiis
-        nihil. Ab molestias ut, est culpa et fuga, corporis aliquid nemo
-        possimus veniam asperiores consequuntur omnis nesciunt? Repudiandae
-        distinctio nihil illo recusandae, similique perferendis omnis accusamus
-        sint, minima placeat nobis eum cumque magnam quasi esse iste possimus
-        quis. Fuga, quod.
-      </p>
-
-      <p className="text-justify sm:text-sm md:text-md lg:text-lg sm:mb-2 md:mb-4 lg:mb-8 text-gray-200">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi suscipit
-        vitae, dicta aut eaque temporibus beatae expedita commodi a tenetur,
-        tempora quidem sunt laboriosam corporis, harum inventore! Nam laudantium
-        vel eaque aliquam ut voluptatum voluptate culpa, ad iusto minima. Amet
-        repellat ipsam tempore rerum fugit ut quisquam consequuntur impedit
-        soluta voluptas nulla quaerat quod autem aut, saepe sint fugiat officiis
-        nihil. Ab molestias ut, est culpa et fuga, corporis aliquid nemo
-        possimus veniam asperiores consequuntur omnis nesciunt? Repudiandae
-        distinctio nihil illo recusandae, similique perferendis omnis accusamus
-        sint, minima placeat nobis eum cumque magnam quasi esse iste possimus
-        quis. Fuga, quod.
+      <p className="text-justify sm:text-sm md:text-md lg:text-lg mb-4 text-gray-200">
+        {post.content.split("\n").map((line, index) => (
+          <span key={index}>
+            {line}
+            <br />
+            <br />
+          </span>
+        ))}
       </p>
 
       {/* Like Comment Wrapper */}
