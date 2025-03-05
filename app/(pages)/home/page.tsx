@@ -34,7 +34,7 @@ export default function Page() {
       {
         isLoading ? (<CircularLoadingBar/>) : error ? (<>Error...</>) :
       
-      posts?.map((post: Post, index: any) => (
+      posts?.map((post: Post, index: number) => (
             <div key={index} className="my-4 hover:cursor-pointer hover:bg-gray-500/10 rounded-lg p-8 transition-all ease-in-out" onClick={() => router.push(`/post/${post.id}`)}>
               <div className="flex justify-between">
                 <div className="flex flex-col justify-between">
@@ -63,7 +63,7 @@ export default function Page() {
                   </div>
                 </div>
                 <Image
-                  src={"/2831104.jpg"}
+                  src={"https://loremflickr.com/200/200/?random=" + index}
                   alt={post.title}
                   width={200}
                   height={200}

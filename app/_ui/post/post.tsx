@@ -6,6 +6,7 @@ import { useEffect, useReducer, useState } from "react";
 import newEditor from "@/app/_ui/component/editor/editor";
 import { EditorContent } from "@tiptap/react"; 
 import type { Post } from "@/app/_types/Post";
+import Comment from "@/app/_ui/comment/comments";
 
 export default function PostContent({
   post,
@@ -13,9 +14,8 @@ export default function PostContent({
   post: Post;
 }>
 ) {
-  const Post: Post = post;
   const [liked, setLiked] = useState(false);
-  const editor = newEditor("h-40 mb-20", "Write a comment");
+  const [showComment, setShowComment] = useState(false);
   const comments = post.comment;
   const [likes, dispatch] = useReducer(
     (state: number, action: { type: string }) => {
@@ -34,7 +34,7 @@ export default function PostContent({
   return (
     <div className="w-full">
       <Image
-        src={"/header.jpg"}
+        src={"https://loremflickr.com/1080/480/?random" + Math.random()}
         alt="Header Image"
         width={1080}
         height={0}
@@ -77,16 +77,18 @@ export default function PostContent({
         </div>
         {/* Comment icon */}
         <div className="flex gap-2">
-          <button onClick={(): void => {}}>
+          <button onClick={(): void => {
+            setShowComment(!showComment);
+          }}>
             <i className="fa-solid fa-comment sm:text-xl md:text-2xl lg:text-3xl"></i>
           </button>
           <span>
             <span className="sm:text-sm md:text-md lg:text-lg">{comments}</span>
           </span>
-        </div>
+        </div>  
 
       </div>
-        <EditorContent editor={editor}/>
+        {showComment && <Comment />} 
     </div>
   );
 }

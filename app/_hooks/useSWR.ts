@@ -8,16 +8,12 @@ export default function useSWRHook(url: string, method?: Method, body?: any) {
     (url: string) =>
       fetch(`${process.env.BASE_URL}/${url}`, {
         method: method ?? "GET",
-        body:
-          method === "POST" || method === "PUT"
-            ? JSON.stringify(body)
-            : undefined,
         headers: {
           "Content-Type": "application/json",
         },
       }).then((res) => res.json()),
     {
-      keepPreviousData: method === "GET" ? true : false,
+      keepPreviousData: true,
       
     },
   );

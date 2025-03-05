@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import usePost from "@/app/_hooks/usePost";
 import CircularLoadingBar from "@/app/_ui/component/circularbar";
 import PostContent from "@/app/_ui/post/post";
+import Link from "next/link";
 
 export default function Home() {
   const postId = useParams().id as string;
@@ -19,12 +20,21 @@ export default function Home() {
       ) : (
         <div className="text-white w-full">
           {/* Title and Subtitle */}
-          <h1 className="text-start mt-16 sm:text-xl md:text-2xl lg:text-4xl font-bold">
-            {post.title}
-          </h1>
-          <h2 className="text-start sm:text-md md:text-lg lg:text-xl sm:mt-2 md:mt-4 lg:mt-8 text-gray-400">
-            {post.description}
-          </h2>
+          <div className="flex gap-4 justify-between items-start w-full">
+            <div>
+              <h1 className="text-start mt-16 sm:text-xl md:text-2xl lg:text-4xl font-bold">
+                {post.title}
+              </h1>
+              <h2 className="text-start sm:text-md md:text-lg lg:text-xl sm:mt-2 md:mt-4 lg:mt-8 text-gray-400">
+                {post.description}
+              </h2>
+            </div>
+
+            <Link href={"/home"} className="mt-16">
+            
+            <i className="fa-solid fa-chevron-left"></i>  Home
+            </Link>
+          </div>
 
           {/* Author Identity */}
           <div className="flex justify-start gap-4 items-center sm:mt-2 md:mt-4 lg:mt-8 w-2/4">

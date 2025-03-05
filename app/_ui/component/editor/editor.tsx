@@ -6,7 +6,6 @@ import Paragraph from "@tiptap/extension-paragraph";
 import Placeholder from "@tiptap/extension-placeholder";
 import Text from "@tiptap/extension-text";
 import { Editor, EditorContent, useEditor } from "@tiptap/react";
-import React, { forwardRef, useImperativeHandle } from "react";
 
 const newEditor = (className?:string,placeholder?:string) => {
   const editor = useEditor({
